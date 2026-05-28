@@ -1,0 +1,84 @@
+version: 1.0.0
+kind: DataContract
+id: 2a3b8c1d-9e4f-5a6b-7c8d-9e0f1a2b3c4d
+status: active
+name: countries
+dataProduct: refman_countries
+description:
+  purpose: Reference list of world countries with ISO codes and region classification
+  limitations: Contains only a subset of countries for demonstration
+  usage: Master data for country selection across the application
+tenant: Refman
+apiVersion: v3.1.0
+
+schema:
+  - name: countries
+    physicalType: table
+    description: ISO country codes and region classification
+    tags: ['master-data', 'countries', 'reference']
+    properties:
+      - name: Country Name
+        businessName: Country Name
+        logicalType: string
+        required: true
+        description: Full official name of the country
+        examples:
+          - "Australia"
+          - "Germany"
+        quality:
+          - metric: nullValues
+            mustBe: 0
+            description: Country name must not be null
+            dimension: completeness
+            severity: error
+
+      - name: Alpha-2
+        businessName: Alpha-2 Code
+        logicalType: string
+        physicalType: varchar(2)
+        required: true
+        unique: true
+        description: Two-letter ISO country code (ISO 3166-1 alpha-2)
+        examples:
+          - "AU"
+          - "DE"
+        logicalTypeOptions:
+          minLength: 2
+          maxLength: 2
+
+      - name: Alpha-3
+        businessName: Alpha-3 Code
+        logicalType: string
+        physicalType: varchar(3)
+        required: true
+        unique: true
+        description: Three-letter ISO country code (ISO 3166-1 alpha-3)
+        examples:
+          - "AUS"
+          - "DEU"
+        logicalTypeOptions:
+          minLength: 3
+          maxLength: 3
+
+      - name: Numeric
+        businessName: Numeric Code
+        logicalType: string
+        physicalType: varchar(3)
+        required: true
+        unique: true
+        description: Three-digit ISO country code (ISO 3166-1 numeric)
+        examples:
+          - "036"
+          - "276"
+        logicalTypeOptions:
+          minLength: 3
+          maxLength: 3
+
+      - name: Region
+        businessName: Region
+        logicalType: string
+        required: true
+        description: Geographic region classification
+        examples:
+          - "Oceania"
+          - "Europe"
