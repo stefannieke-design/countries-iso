@@ -1,4 +1,4 @@
-version: 1.2.0
+version: 1.0.0
 kind: DataContract
 id: 2a3b8c1d-9e4f-5a6b-7c8d-9e0f1a2b3c4d
 status: active
@@ -89,9 +89,8 @@ schema:
           - "Oceania"
           - "Europe"
         relationships:
-          - to: regions.Region Name
+          - to: schema/regions/properties/region_name
             type: foreignKey
-            description: Reference to the regions table
 
   - id: regions
     name: regions
