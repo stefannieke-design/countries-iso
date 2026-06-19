@@ -1,4 +1,4 @@
-version: 1.0.1
+version: 1.0.2
 kind: DataContract
 id: 2a3b8c1d-9e4f-5a6b-7c8d-9e0f1a2b3c4d
 status: active
@@ -35,8 +35,8 @@ schema:
             severity: error
 
       - id: alpha_2
-        name: Alpha 2
-        businessName: Alpha 2 Code
+        name: Alpha-2
+        businessName: Alpha-2 Code
         logicalType: string
         physicalType: varchar(2)
         required: true
