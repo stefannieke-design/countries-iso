@@ -92,6 +92,22 @@ schema:
           - to: schema/regions/properties/region_name
             type: foreignKey
 
+      - id: sub_region                          # NEU
+        name: Sub-Region
+        businessName: Sub-Region
+        logicalType: string
+        required: false
+        description: >
+          Geographic sub-region classification - references the sub_regions table.
+          Allows finer-grained grouping within a continent (e.g. "Western Europe",
+          "Southeast Asia").
+        examples:
+          - "Australia and New Zealand"
+          - "Western Europe"
+        relationships:
+          - to: schema/sub_regions/properties/sub_region_name
+            type: foreignKey
+
   - id: regions
     name: regions
     physicalType: table
@@ -133,3 +149,64 @@ schema:
           - "AF"
           - "NA"
           - "SA"
+
+  - id: sub_regions                             # NEU
+    name: sub_regions
+    physicalType: table
+    description: >
+      Geographic sub-regions for finer country classification.
+      Each sub-region belongs to exactly one parent region.
+    tags: ['master-data', 'sub-regions', 'reference']
+    properties:
+      - id: sub_region_name
+        name: Sub-Region Name
+        businessName: Sub-Region Name
+        logicalType: string
+        required: true
+        unique: true
+        description: Full name of the geographic sub-region
+        examples:
+          - "Australia and New Zealand"
+          - "Western Europe"
+          - "Southeast Asia"
+          - "Sub-Saharan Africa"
+          - "Northern America"
+          - "South America"
+        quality:
+          - metric: nullValues
+            mustBe: 0
+            dimension: completeness
+            severity: error
+
+      - id: sub_region_code
+        name: Sub-Region Code
+        businessName: Sub-Region Code
+        logicalType: string
+        physicalType: varchar(4)
+        required: false
+        unique: true
+        description: Short code for the sub-region (up to 4 characters)
+        examples:
+          - "OCAU"
+          - "EUWE"
+          - "ASSE"
+          - "AFSS"
+          - "AMNO"
+          - "AMSO"
+        logicalTypeOptions:
+          maxLength: 4
+
+      - id: parent_region
+        name: Parent Region
+        businessName: Parent Region
+        logicalType: string
+        required: true
+        description: >
+          The parent continent/region this sub-region belongs to -
+          references the regions table.
+        examples:
+          - "Oceania"
+          - "Europe"
+        relationships:
+          - to: schema/regions/properties/region_name
+            type: foreignKey
