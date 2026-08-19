@@ -35,7 +35,7 @@ schema:
             severity: error
 
       - id: alpha_2
-        name: Alpha-4
+        name: Alpha-2
         businessName: Alpha-2 Code
         logicalType: string
         physicalType: varchar(2)
