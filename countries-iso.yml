@@ -50,7 +50,7 @@ schema:
           maxLength: 2
 
       - id: alpha_3
-        name: Alpha-3
+        name: Alpha-5
         businessName: Alpha-3 Code
         logicalType: string
         physicalType: varchar(3)
